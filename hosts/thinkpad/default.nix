@@ -11,10 +11,11 @@
     ./hardware-configuration.nix
 
     ../common/global
-    ../common/users/elena
+    ./users/elena
 
     ../common/optional/pipewire.nix
-    ../common/optional/quietboot.nix
+    ../common/optional/gdm.nix
+    # ../common/optional/quietboot.nix
     ../common/optional/systemd-boot.nix
     ../common/optional/wireless.nix
   ];

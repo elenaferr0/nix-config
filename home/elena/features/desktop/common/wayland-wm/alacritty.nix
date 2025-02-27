@@ -20,31 +20,28 @@
         };
       };
       window = {
-        padding = {
-          x = 24;
-          y = 26;
-        };
+        padding = 15;
+        opacity = 0.7;
       };
-      # colors = rec {
-      #   primary = {
-      #     background = config.colorscheme.colors.surface;
-      #     foreground = config.colorscheme.colors.on_surface;
-      #   };
-      #   normal = {
-      #     black = config.colorscheme.colors.surface_dim;
-      #     white = config.colorscheme.colors.on_surface;
-      #     red = config.colorscheme.colors.red;
-      #     green = config.colorscheme.colors.green;
-      #     yellow = config.colorscheme.colors.yellow;
-      #     blue = config.colorscheme.colors.blue;
-      #     magenta = config.colorscheme.colors.magenta;
-      #     cyan = config.colorscheme.colors.cyan;
-      #   };
-      #   # TODO make actual bright variants
-      #   bright = normal // {
-      #     black = config.colorscheme.colors.on_surface_variant;
-      #   };
-      # };
+      colors = {
+        primary = {
+          background = "#000000";
+        };
+        # normal = {
+        #   black = config.colorscheme.colors.surface_dim;
+        #   white = config.colorscheme.colors.on_surface;
+        #   red = config.colorscheme.colors.red;
+        #   green = config.colorscheme.colors.green;
+        #   yellow = config.colorscheme.colors.yellow;
+        #   blue = config.colorscheme.colors.blue;
+        #   magenta = config.colorscheme.colors.magenta;
+        #   cyan = config.colorscheme.colors.cyan;
+        # };
+        # # TODO make actual bright variants
+        # bright = normal // {
+        #   black = config.colorscheme.colors.on_surface_variant;
+        # };
+      };
     };
   };
 }

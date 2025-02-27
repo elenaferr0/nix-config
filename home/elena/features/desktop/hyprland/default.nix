@@ -2,16 +2,16 @@
   lib,
   config,
   pkgs,
-  outputs,
   ...
-}: let
-  getHostname = x: lib.last (lib.splitString "@" x);
-in {
+} : {
   imports = [
     ../common
     ../common/wayland-wm
 
     ./basic-binds.nix
+    ./hypridle.nix
+    ./hyprlock.nix
+    # ./hyprpaper.nix
   ];
 
   xdg.portal = {
@@ -23,7 +23,6 @@ in {
 
   home.packages = with pkgs; [
     grimblast
-    hyprpicker
   ];
 
   wayland.windowManager.hyprland = {
@@ -82,55 +81,21 @@ in {
         new_window_takes_over_fullscreen = 2;
       };
       windowrulev2 = let
-        sweethome3d-tooltips = "title:win[0-9],class:com-eteks-sweethome3d-SweetHome3DBootstrap";
-        steamGame = "class:steam_app_[0-9]*";
-        kdeconnect-pointer = "class:org.kdeconnect.daemon";
-        wineTray ="class:explorer.exe";
-        rsiLauncher ="class:rsi launcher.exe";
-        steamBigPicture = "title:Steam Big Picture Mode";
+        calculator = "title: Calculator";
+        calendar = "title: Calendar";
+        jetbrains-win = "class:^(jetbrains-.*),title:^(win.*)";
+        jetbrains-welcome = "class:^(jetbrains-.*),title:^(Welcome to.*)";
+        jetbrains-replace-all = "class:^(jetbrains-.*),title:^(Replace All)$";
+        jetbrains-allows-input = "class:^(jetbrains-.*)";
       in
         [
-          "nofocus, ${sweethome3d-tooltips}"
-
-          "immediate, ${steamGame}"
-
-          "size 100% 100%, ${kdeconnect-pointer}"
-          "float, ${kdeconnect-pointer}"
-          "nofocus, ${kdeconnect-pointer}"
-          "noblur, ${kdeconnect-pointer}"
-          "noanim, ${kdeconnect-pointer}"
-          "noshadow, ${kdeconnect-pointer}"
-          "noborder, ${kdeconnect-pointer}"
-          "suppressevent fullscreen, ${kdeconnect-pointer}"
-
-          "workspace special silent, ${wineTray}"
-
-          "tile, ${rsiLauncher}"
-
-          "fullscreen, ${steamBigPicture}"
+          "float, ${calculator}"
+          "float, ${calendar}"
+          "float, floating:0, ${jetbrains-win}"
+          "float, ${jetbrains-welcome}"
+          "center, ${jetbrains-replace-all}"
+          "allowsinput, ${jetbrains-allows-input}"
         ];
-      #   ++
-      # (lib.mapAttrsToList (
-      #       name: colors: "bordercolor ${rgba colors.primary "aa"} ${rgba colors.primary_container "aa"}, title:\\[${name}\\].*"
-      #     )
-      #     remoteColorschemes);
-      layerrule = [
-        "animation fade,hyprpicker"
-        "animation fade,selection"
-
-        "animation fade,waybar"
-        "blur,waybar"
-        "ignorezero,waybar"
-
-        "blur,notifications"
-        "ignorezero,notifications"
-
-        "blur,wofi"
-        "ignorezero,wofi"
-
-        "noanim,wallpaper"
-      ];
-
       decoration = {
         active_opacity = 1.0;
         inactive_opacity = 0.85;
@@ -184,32 +149,23 @@ in {
         ];
       };
 
-      exec = [
-        "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
-        "hyprctl setcursor ${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}"
+      exec-once = [
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
       ];
+
 
       bind = let
         grimblast = lib.getExe pkgs.grimblast;
         pactl = lib.getExe' pkgs.pulseaudio "pactl";
         defaultApp = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
-        remote = lib.getExe (pkgs.writeShellScriptBin "remote" ''
-          socket="$(basename "$(find ~/.ssh -name 'master-elena@*' | head -1 | cut -d ':' -f1)")"
-          host="''${socket#master-}"
-          ssh "$host" "$@"
-        '');
       in
         [
           # Program bindings
           "SUPER,Return,exec,${defaultApp "x-scheme-handler/terminal"}"
-          "SUPER,e,exec,${defaultApp "text/plain"}"
-          "SUPER,b,exec,${defaultApp "x-scheme-handler/https"}"
-          "SUPERALT,Return,exec,${remote} ${defaultApp "x-scheme-handler/terminal"}"
-          "SUPERALT,e,exec,${remote} ${defaultApp "text/plain"}"
-          "SUPERALT,b,exec,${remote} ${defaultApp "x-scheme-handler/https"}"
-          # Brightness control (only works if the system has lightd)
-          ",XF86MonBrightnessUp,exec,light -A 10"
-          ",XF86MonBrightnessDown,exec,light -U 10"
+          # Brightness control
+          ",XF86MonBrightnessUp,exec,brightnessctl set 10%+"
+          ",XF86MonBrightnessDown,exec,brightnessctl set 10%-"
           # Volume
           ",XF86AudioRaiseVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
           ",XF86AudioLowerVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
@@ -219,36 +175,30 @@ in {
           "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           # Screenshotting
-          ",Print,exec,${grimblast} --notify --freeze copy area"
-          "SHIFT,Print,exec,${grimblast} --notify --freeze copy output"
+          ",S,exec,${grimblast} --notify --freeze copy area"
+          "SHIFT,S,exec,${grimblast} --notify --freeze copy output"
         ]
-        # ++ (
-        #   let
-        #     playerctl = lib.getExe' config.services.playerctld.package "playerctl";
-        #     playerctld = lib.getExe' config.services.playerctld.package "playerctld";
-        #   in
-        #     lib.optionals config.services.playerctld.enable [
-        #       # Media control
-        #       ",XF86AudioNext,exec,${playerctl} next"
-        #       ",XF86AudioPrev,exec,${playerctl} previous"
-        #       ",XF86AudioPlay,exec,${playerctl} play-pause"
-        #       ",XF86AudioStop,exec,${playerctl} stop"
-        #       "SHIFT,XF86AudioNext,exec,${playerctld} shift"
-        #       "SHIFT,XF86AudioPrev,exec,${playerctld} unshift"
-        #       "SHIFT,XF86AudioPlay,exec,systemctl --user restart playerctld"
-        #     ]
-        # )
-        ++
-        # Screen lock
-        (
+        ++ (
           let
-            swaylock = lib.getExe config.programs.swaylock.package;
+            playerctl = lib.getExe' config.services.playerctld.package "playerctl";
+            playerctld = lib.getExe' config.services.playerctld.package "playerctld";
           in
-            lib.optionals config.programs.swaylock.enable [
-              "SUPER,backspace,exec,${swaylock} -S --grace 2 --grace-no-mouse"
-              "SUPER,XF86Calculator,exec,${swaylock} -S --grace 2 --grace-no-mouse"
+            lib.optionals config.services.playerctld.enable [
+              # Media control
+              ",XF86AudioNext,exec,${playerctl} next"
+              ",XF86AudioPrev,exec,${playerctl} previous"
+              ",XF86AudioPlay,exec,${playerctl} play-pause"
+              ",XF86AudioStop,exec,${playerctl} stop"
+              "SHIFT,XF86AudioNext,exec,${playerctld} shift"
+              "SHIFT,XF86AudioPrev,exec,${playerctld} unshift"
+              "SHIFT,XF86AudioPlay,exec,systemctl --user restart playerctld"
             ]
         )
+        ++
+        # Screen lock
+        [
+          "SUPER,Escape,exec,hyprlock -q"
+        ]
         ++
         # Notification manager
         (
@@ -271,8 +221,8 @@ in {
               "SUPER,s,exec,specialisation $(specialisation | ${wofi} -S dmenu)"
               "SUPER,d,exec,${wofi} -S run"
 
-              "SUPERALT,x,exec,${remote} ${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-              "SUPERALT,d,exec,${remote} ${wofi} -S run"
+              # "SUPERALT,x,exec,${remote} ${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
+              # "SUPERALT,d,exec,${remote} ${wofi} -S run"
             ]
             ++ (
               let
@@ -282,26 +232,26 @@ in {
                   ''SUPER,c,exec,selected=$(${cliphist} list | ${wofi} -S dmenu) && echo "$selected" | ${cliphist} decode | wl-copy''
                 ]
             )
-            ++ (
-              let
-                # Save to image and share it to device, if png; else share as text to clipboard.
-                share-kdeconnect = lib.getExe (pkgs.writeShellScriptBin "kdeconnect-share" ''
-                  type="$(wl-paste -l | head -1)"
-                  device="$(kdeconnect-cli -a --id-only | head -1)"
-                  if [ "$type" == "image/png" ]; then
-                    path="$(mktemp XXXXXXX.png)"
-                    wl-paste > "$path"
-                    output="$(kdeconnect-cli --share "$path" -d "$device")"
-                  else
-                    output="$(kdeconnect-cli --share-text "$(wl-paste)" -d "$device")"
-                  fi
-                  notify-send -i kdeconnect "$output"
-                '');
-              in
-                lib.optionals config.services.kdeconnect.enable [
-                  "SUPER,v,exec,${share-kdeconnect}"
-                ]
-            )
+            # ++ (
+            #   let
+            #     # Save to image and share it to device, if png; else share as text to clipboard.
+            #     share-kdeconnect = lib.getExe (pkgs.writeShellScriptBin "kdeconnect-share" ''
+            #       type="$(wl-paste -l | head -1)"
+            #       device="$(kdeconnect-cli -a --id-only | head -1)"
+            #       if [ "$type" == "image/png" ]; then
+            #         path="$(mktemp XXXXXXX.png)"
+            #         wl-paste > "$path"
+            #         output="$(kdeconnect-cli --share "$path" -d "$device")"
+            #       else
+            #         output="$(kdeconnect-cli --share-text "$(wl-paste)" -d "$device")"
+            #       fi
+            #       notify-send -i kdeconnect "$output"
+            #     '');
+            #   in
+            #     lib.optionals config.services.kdeconnect.enable [
+            #       "SUPER,v,exec,${share-kdeconnect}"
+            #     ]
+            # )
         );
 
       monitor = let
@@ -343,13 +293,5 @@ in {
         lib.filter (m: m.enabled && m.workspace != null) config.monitors
       );
     };
-    # This is order sensitive, so it has to come here.
-    extraConfig = ''
-      # Passthrough mode (e.g. for VNC)
-      bind=SUPER,P,submap,passthrough
-      submap=passthrough
-      bind=SUPER,P,submap,reset
-      submap=reset
-    '';
   };
 }

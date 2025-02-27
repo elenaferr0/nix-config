@@ -1,11 +1,11 @@
 {lib, ...}: {
   wayland.windowManager.hyprland.settings = {
-    bindm = [
-      "SUPER,mouse:272,movewindow"
-      "SUPER,mouse:273,resizewindow"
-    ];
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
 
-    bind = let
+      bind = let
       workspaces = [
         "0"
         "1"
@@ -43,33 +43,19 @@
       };
     in
       [
-        "SUPERSHIFT,q,killactive"
-        "SUPERSHIFT,e,exit"
+        # "SUPER,Return,exec,alacritty"
+        "SUPERSHIFT,Q,killactive"
+        "SUPERSHIFT,E,exit"
 
-        "SUPER,s,togglesplit"
-        "SUPER,f,fullscreen,1"
-        "SUPERSHIFT,f,fullscreen,0"
-        "SUPERSHIFT,space,togglefloating"
+        "SUPER,space,togglesplit"
+        "SUPER,F,fullscreen,1" # maximize
+        "SUPER,V,togglefloating"
 
         "SUPER,minus,splitratio,-0.25"
         "SUPERSHIFT,minus,splitratio,-0.3333333"
 
         "SUPER,equal,splitratio,0.25"
         "SUPERSHIFT,equal,splitratio,0.3333333"
-
-        "SUPER,g,togglegroup"
-        "SUPER,t,lockactivegroup,toggle"
-        "SUPER,tab,changegroupactive,f"
-        "SUPERSHIFT,tab,changegroupactive,b"
-
-        "SUPER,apostrophe,workspace,previous"
-        "SUPERSHIFT,apostrophe,workspace,next"
-        "SUPER,dead_grave,workspace,previous"
-        "SUPERSHIFT,dead_grave,workspace,next"
-
-        "SUPER,u,togglespecialworkspace"
-        "SUPERSHIFT,u,movetoworkspacesilent,special"
-        "SUPER,i,pseudo"
       ]
       ++
       # Change workspace
@@ -98,5 +84,6 @@
           key: direction: "SUPERALTSHIFT,${key},movecurrentworkspacetomonitor,${direction}"
         )
         directions);
+      "$mod" = "SUPER";
   };
 }

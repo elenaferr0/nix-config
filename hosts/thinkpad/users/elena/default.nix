@@ -29,13 +29,30 @@ in {
     ];
 
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/elena/ssh.pub);
-    hashedPasswordFile = config.sops.secrets.elena-password.path;
+    # hashedPasswordFile = config.sops.secrets.elena-password.path;
+    initialPassword = "test";
     packages = [pkgs.home-manager];
   };
 
-  sops.secrets.elena-password = {
-    sopsFile = ../../secrets.yaml;
-    neededForUsers = true;
+  users.users.root = {
+    hashedPasswordFile = config.sops.secrets.root-password.path;
+  };
+
+  # sops.secrets.elena-password = {
+  #   sopsFile = ../../secrets.yaml;
+  #   neededForUsers = true;
+  # };
+  sops = {
+    gnupg.sshKeyPaths = [];
+    secrets = {
+      elena-password = {
+        sopsFile = ../../secrets.yaml;
+      };
+      root-password = {
+        sopsFile = ../../secrets.yaml;
+        neededForUsers = true;
+      };
+    };
   };
 
   home-manager.users.elena = import ../../../../home/elena/${config.networking.hostName}.nix;
