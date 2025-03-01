@@ -4,7 +4,7 @@ keys:
   #   - &misterio 7088C7421873E0DB97FF17C2245CAB70B4C225E9
   # Hosts
   - &hosts:
-    - &thinkpad age1n7lh707sn0jv8kwpfsredgxqa7pwc9743qd0c37pdnxqnuzetvsqz3glgj
+    - &thinkpad age1slw599sz04tuw8yymzjgha7njuggjlpu20rmtaj9q4k37ez6jc6qtg5e2g
 
 creation_rules:
   - path_regex: hosts/thinkpad/secrets.ya?ml$

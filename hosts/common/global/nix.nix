@@ -7,8 +7,8 @@
 in {
   nix = {
     settings = {
-      extra-substituters = lib.mkAfter ["https://cache.m7.rs"];
-      extra-trusted-public-keys = ["cache.m7.rs:kszZ/NSwE/TjhOcPPQ16IuUiuRSisdiIwhKZCxguaWg="];
+      # extra-substituters = lib.mkAfter ["https://cache.m7.rs"];
+      # extra-trusted-public-keys = ["cache.m7.rs:kszZ/NSwE/TjhOcPPQ16IuUiuRSisdiIwhKZCxguaWg="];
       trusted-users = [
         "root"
         "@wheel"

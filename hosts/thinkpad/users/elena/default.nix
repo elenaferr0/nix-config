@@ -11,26 +11,15 @@ in {
     isNormalUser = true;
     shell = pkgs.bash;
     extraGroups = ifTheyExist [
-      "audio"
-      "deluge"
       "docker"
       "git"
-      "i2c"
-      "libvirtd"
-      "lxd"
-      "minecraft"
-      "mysql"
+      # "lxd"
       "network"
-      "plugdev"
-      "podman"
-      "video"
       "wheel"
-      "wireshark"
     ];
 
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/elena/ssh.pub);
-    # hashedPasswordFile = config.sops.secrets.elena-password.path;
-    initialPassword = "test";
+    hashedPasswordFile = config.sops.secrets.elena-password.path;
     packages = [pkgs.home-manager];
   };
 

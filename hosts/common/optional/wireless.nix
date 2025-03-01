@@ -18,8 +18,8 @@
     # Declarative
     secretsFile = config.sops.secrets.wireless.path;
     networks = {
-      "Vodafone-Home-1" = {
-        pskRaw = "ext:home_psk_1";
+      "bit" = {
+        pskRaw = "ext:bit_psk";
       };
       # "Misterio" = {
       #   pskRaw = "ext:misterio";
