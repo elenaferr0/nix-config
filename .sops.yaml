@@ -1,22 +1,13 @@
 keys:
-  # Users
-  # - &users:
-  #   - &misterio 7088C7421873E0DB97FF17C2245CAB70B4C225E9
-  # Hosts
-  - &hosts:
-    - &thinkpad age1slw599sz04tuw8yymzjgha7njuggjlpu20rmtaj9q4k37ez6jc6qtg5e2g
+  - &thinkpad age1838zjrhxhnuztfy0x9wn8nkaqh2nplaul3t4mez2r4w5gq5px4js8n7p3w
 
 creation_rules:
   - path_regex: hosts/thinkpad/secrets.ya?ml$
     key_groups:
     - age:
       - *thinkpad
-      # pgp:
-      # - *misterio
 
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
     - age:
       - *thinkpad
-      # pgp:
-      # - *misterio

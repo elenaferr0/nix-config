@@ -15,10 +15,14 @@
     "/persist" = {
       files = [
         "/etc/machine-id"
+        "/home/elena/.config/sops/age/keys.txt"
       ];
       directories = [
+        "/etc/ssh"
+	"/etc/nixos"
         "/var/lib/systemd"
         "/var/lib/nixos"
+        "/var/lib/sops-nix"
         "/var/log"
         "/srv"
       ];
@@ -36,4 +40,9 @@
     users = lib.attrValues config.users.users;
   in
     lib.concatLines (map mkHomePersist users);
+
+  systemd.tmpfiles.rules = [
+    "d /persist/home/ 0777 root root -"
+    "d /persist/home/elena 0700 elena users -"
+  ];
 }

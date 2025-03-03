@@ -9,13 +9,13 @@
       inputs.home-manager.nixosModules.home-manager
       # ./fish.nix
       ./locale.nix
+      ./nix-ld.nix
       ./nix.nix
       ./openssh.nix
       ./optin-persistence.nix
       ./sops.nix
       ./ssh-serve-store.nix
-      ./systemd-initrd.nix
-      ./nix-ld.nix
+      # ./systemd-initrd.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
@@ -35,7 +35,6 @@
   };
 
   hardware.enableRedistributableFirmware = true;
-  networking.domain = "m7.rs";
 
   # Increase open file limit for sudoers
   # security.pam.loginLimits = [

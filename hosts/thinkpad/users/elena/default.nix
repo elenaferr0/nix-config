@@ -6,7 +6,20 @@
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  users.mutableUsers = false;
+sops = {
+    secrets = {
+      elena-password = {
+        sopsFile = ../../secrets.yaml;
+        neededForUsers = true;
+      };
+      root-password = {
+        sopsFile = ../../secrets.yaml;
+        neededForUsers = true;
+      };
+    };
+  };
+
+  users.mutableUsers = true;
   users.users.elena = {
     isNormalUser = true;
     shell = pkgs.bash;
@@ -18,30 +31,15 @@ in {
       "wheel"
     ];
 
-    openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/elena/ssh.pub);
-    hashedPasswordFile = config.sops.secrets.elena-password.path;
+    # openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/elena/ssh.pub);
+    initialPassword = "test";
+    # hashedPasswordFile = config.sops.secrets.elena-password.path;
     packages = [pkgs.home-manager];
   };
 
   users.users.root = {
-    hashedPasswordFile = config.sops.secrets.root-password.path;
-  };
-
-  # sops.secrets.elena-password = {
-  #   sopsFile = ../../secrets.yaml;
-  #   neededForUsers = true;
-  # };
-  sops = {
-    gnupg.sshKeyPaths = [];
-    secrets = {
-      elena-password = {
-        sopsFile = ../../secrets.yaml;
-      };
-      root-password = {
-        sopsFile = ../../secrets.yaml;
-        neededForUsers = true;
-      };
-    };
+    initialPassword = "test";
+    # hashedPasswordFile = config.sops.secrets.root-password.path;
   };
 
   home-manager.users.elena = import ../../../../home/elena/${config.networking.hostName}.nix;

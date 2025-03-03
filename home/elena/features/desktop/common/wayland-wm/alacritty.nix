@@ -20,7 +20,10 @@
         };
       };
       window = {
-        padding = 15;
+        padding = {
+          x = 15;
+          y = 15;
+        };
         opacity = 0.7;
       };
       colors = {

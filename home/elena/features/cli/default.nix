@@ -4,13 +4,13 @@
 
     ./bash.nix
     ./bat.nix
-    ./direnv.nix
-    ./fzf.nix
-    ./gh.nix
+    # ./direnv.nix
+    # ./fzf.nix
+    # ./gh.nix
     ./git.nix
-    ./gpg.nix
+    # ./gpg.nix
     # ./nix-index.nix
-    ./pfetch.nix
+    # ./pfetch.nix
     ./ssh.nix
   ];
   home.packages = with pkgs; [

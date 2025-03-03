@@ -56,17 +56,20 @@
         movefocus_cycles_fullscreen = false;
       };
       input = {
-        kb_layout = "br";
+        repeat_rate = 40;
+        repeat_delay = 300;
+        kb_layout = "us,it";
+        kb_options = "grp:win_space_toggle";
         touchpad.disable_while_typing = false;
       };
       device = [
         {
-          name = "keychron-keychron-v3";
-          kb_layout = "us_intl";
-        }
-        {
-          name = "keychron-keychron-v3-keyboard";
-          kb_layout = "us_intl";
+          name = "etps/2-elantech-touchpad";
+          sensitivity = 0.1;
+          accel_profile = "adaptive";
+
+          natural_scroll = true;
+          drag_lock = true;
         }
       ];
       dwindle = {
@@ -157,6 +160,7 @@
 
       bind = let
         grimblast = lib.getExe pkgs.grimblast;
+        brightnessctl = lib.getExe pkgs.brightnessctl;
         pactl = lib.getExe' pkgs.pulseaudio "pactl";
         defaultApp = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
       in
@@ -164,8 +168,8 @@
           # Program bindings
           "SUPER,Return,exec,${defaultApp "x-scheme-handler/terminal"}"
           # Brightness control
-          ",XF86MonBrightnessUp,exec,brightnessctl set 10%+"
-          ",XF86MonBrightnessDown,exec,brightnessctl set 10%-"
+          ",XF86MonBrightnessUp,exec,${brightnessctl} set 10%+"
+          ",XF86MonBrightnessDown,exec,${brightnessctl} set 10%-"
           # Volume
           ",XF86AudioRaiseVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
           ",XF86AudioLowerVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
@@ -175,8 +179,8 @@
           "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           # Screenshotting
-          ",S,exec,${grimblast} --notify --freeze copy area"
-          "SHIFT,S,exec,${grimblast} --notify --freeze copy output"
+          # "SUPER,S,exec,${grimblast} --notify --freeze copy area"
+          # "SHIFT,S,exec,${grimblast} --notify --freeze copy output"
         ]
         ++ (
           let

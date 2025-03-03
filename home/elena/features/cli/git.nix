@@ -27,15 +27,15 @@
   #   esac
   # '';
   # git commit --amend, but for older commits
-  git-fixup = pkgs.writeShellScriptBin "git-fixup" ''
-    rev="$(git rev-parse "$1")"
-    git commit --fixup "$@"
-    GIT_SEQUENCE_EDITOR=true git rebase -i --autostash --autosquash $rev^
-  '';
+  # git-fixup = pkgs.writeShellScriptBin "git-fixup" ''
+  #   rev="$(git rev-parse "$1")"
+  #   git commit --fixup "$@"
+  #   GIT_SEQUENCE_EDITOR=true git rebase -i --autostash --autosquash $rev^
+  # '';
 in {
   home.packages = [
-    git-m7
-    git-fixup
+    # git-m7
+    # git-fixup
   ];
   programs.git = {
     enable = true;
@@ -51,9 +51,9 @@ in {
     userEmail = lib.mkDefault "elena.ferro@gmail.com";
     extraConfig = {
       init.defaultBranch = "master";
-      user.signing.key = "CE707A2C17FAAC97907FF8EF2E54EA7BFE630916";
-      commit.gpgSign = lib.mkDefault true;
-      gpg.program = "${config.programs.gpg.package}/bin/gpg2";
+      # user.signing.key = "CE707A2C17FAAC97907FF8EF2E54EA7BFE630916";
+      # commit.gpgSign = lib.mkDefault true;
+      # gpg.program = "${config.programs.gpg.package}/bin/gpg2";
 
       merge.conflictStyle = "zdiff3";
       commit.verbose = true;

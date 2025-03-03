@@ -23,12 +23,12 @@ in {
     userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts.d/hosts";
     matchBlocks = {
       net = {
-        host = lib.concatStringsSep " " (lib.flatten (map (host: [
-            host
-            "${host}.m7.rs"
-            "${host}.ts.m7.rs"
-          ])
-          hostnames));
+        # host = lib.concatStringsSep " " (lib.flatten (map (host: [
+        #     host
+        #     "${host}.m7.rs"
+        #     "${host}.ts.m7.rs"
+        #   ])
+        #   hostnames));
         forwardAgent = true;
         remoteForwards = [
           {
