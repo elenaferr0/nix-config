@@ -26,6 +26,8 @@
   # environment.systemPackages = with pkgs; [
   #   hello
   # ];
+  environment.pathsToLink = ["/share/xdg-desktop-portal" "/share/applications"];
+
   networking = {
     hostName = "thinkpad";
     useDHCP = true;

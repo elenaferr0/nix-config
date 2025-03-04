@@ -1,4 +1,4 @@
-{vars, ...}: {
+{ config, ... }: {
   services.hyprpaper = {
     enable = true;
     settings = {
@@ -6,10 +6,10 @@
       splash = false;
 
       preload = [
-        "${vars.homeDirectory + "/pictures/wallpapers/current.jpg"}"
+        "${config.home.homeDirectory}/pictures/wallpapers/current.jpg"
       ];
       wallpaper = [
-        ",${vars.homeDirectory + "/pictures/wallpapers/current.jpg"}"
+        "${config.home.homeDirectory}/pictures/wallpapers/current.jpg"
       ];
     };
   };

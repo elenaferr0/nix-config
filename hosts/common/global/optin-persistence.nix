@@ -19,12 +19,14 @@
       ];
       directories = [
         "/etc/ssh"
-	"/etc/nixos"
+	    "/etc/nixos"
         "/var/lib/systemd"
         "/var/lib/nixos"
         "/var/lib/sops-nix"
         "/var/log"
         "/srv"
+	    "/home/elena/.config/nix-config"
+	    "/home/elena/.config/nixpkgs"
       ];
     };
   };

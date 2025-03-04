@@ -8,6 +8,7 @@
     # ./fzf.nix
     # ./gh.nix
     ./git.nix
+    ./nvim
     # ./gpg.nix
     # ./nix-index.nix
     # ./pfetch.nix

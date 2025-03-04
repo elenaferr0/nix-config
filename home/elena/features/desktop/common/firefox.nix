@@ -9,14 +9,15 @@
     profiles.elena = {
       search = {
         force = true;
-        default = "Kagi";
-        privateDefault = "DuckDuckGo";
-        order = ["Kagi" "DuckDuckGo" "Google"];
+	default = "DuckDuckGo";
+        # default = "Kagi";
+        # privateDefault = "DuckDuckGo";
+        # order = ["Kagi" "DuckDuckGo" "Google"];
         engines = {
-          "Kagi" = {
-            urls = [{template = "https://kagi.com/search?q={searchTerms}";}];
-            iconUpdateURL = "https://kagi.com/favicon.ico";
-          };
+          # "Kagi" = {
+          #   urls = [{template = "https://kagi.com/search?q={searchTerms}";}];
+          #   iconUpdateURL = "https://kagi.com/favicon.ico";
+          # };
           "Bing".metaData.hidden = true;
         };
       };

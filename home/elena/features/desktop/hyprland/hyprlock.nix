@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -14,7 +14,7 @@
 
       background = [
         {
-          path = builtins.getEnv "HOME" + "/pictures/wallpapers/current.jpg";
+          path = "${config.home.homeDirectory}/pictures/wallpapers/current.jpg";
         }
       ];
 

@@ -11,13 +11,27 @@
     ./basic-binds.nix
     ./hypridle.nix
     ./hyprlock.nix
-    # ./hyprpaper.nix
+    ./hyprpaper.nix
   ];
 
+  # xdg.userDirs.enable = true;
+
   xdg.portal = {
-    extraPortals = [pkgs.xdg-desktop-portal-wlr];
-    config.hyprland = {
-      default = ["wlr" "gtk"];
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      # xdg-desktop-portal-hyprland
+      # xdg-desktop-portal-gtk
+    ];
+    config = {
+      hyprland = {
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
+      };
     };
   };
 
@@ -28,15 +42,18 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland.override {wrapRuntimeDeps = false;};
+    xwayland = {
+      enable = true;
+    };
     systemd = {
       enable = true;
+      variables = ["--all"];
       # Same as default, but stop graphical-session too
-      extraCommands = lib.mkBefore [
-        "systemctl --user stop graphical-session.target"
-        "systemctl --user start hyprland-session.target"
-      ];
+      # extraCommands = lib.mkBefore [
+      #   "systemctl --user stop graphical-session.target"
+      #   "systemctl --user start hyprland-session.target"
+      # ];
     };
-
     settings = {
       general = {
         gaps_in = 15;
@@ -82,6 +99,10 @@
         focus_on_activate = true;
         # Unfullscreen when opening something
         new_window_takes_over_fullscreen = 2;
+	disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        enable_swallow = true;
+        swallow_regex = "^(Alacritty)$";
       };
       windowrulev2 = let
         calculator = "title: Calculator";
