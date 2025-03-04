@@ -71,43 +71,36 @@ in {
         passthrough = false;
         height = 40;
         margin = "6";
-        position = "top";
-        modules-left =
-          ["custom/menu"]
-          ++ (lib.optionals swayCfg.enable [
-            "sway/workspaces"
-            "sway/mode"
-          ])
-          ++ (lib.optionals hyprlandCfg.enable [
+        position = "top"; modules-left = [ "custom/menu"
+            "custom/hostname"
+            "cpu"
+            "memory"
             "hyprland/workspaces"
-            "hyprland/submap"
-          ])
-          ++ [
-            "custom/currentplayer"
-            "custom/player"
-          ];
+        ];
 
         modules-center = [
-          "cpu"
-          "custom/gpu"
-          "memory"
           "clock"
-          "custom/unread-mail"
         ];
 
         modules-right = [
-          "tray"
-          "custom/rfkill"
+          # "tray"
+          # "custom/rfkill"
+          "hyprland/language"
           "network"
           "pulseaudio"
           "battery"
-          "custom/hostname"
         ];
+
+        "hyprland/language" = {
+          format = " {}";
+          format-en = "US";
+          format-it = "IT";
+        };
 
         clock = {
           interval = 1;
-          format = "{:%d/%m %H:%M:%S}";
-          format-alt = "{:%Y-%m-%d %H:%M:%S %z}";
+          format = "{:%H:%M %d/%m }";
+          format-alt = "{:%Y-%m-%d %H:%M %z}";
           on-click-left = "mode";
           tooltip-format = ''
             <big>{:%Y %B}</big>
@@ -115,15 +108,10 @@ in {
         };
 
         cpu = {
-          format = "  {usage}%";
-        };
-        "custom/gpu" = {
-          interval = 5;
-          exec = mkScript {script = "cat /sys/class/drm/card*/device/gpu_busy_percent | head -1";};
-          format = "󰒋  {}%";
+          format = " {usage}%";
         };
         memory = {
-          format = "  {}%";
+          format = " {}%";
           interval = 5;
         };
 
@@ -140,13 +128,6 @@ in {
             ];
           };
           on-click = lib.getExe pkgs.pavucontrol;
-        };
-        idle_inhibitor = {
-          format = "{icon}";
-          format-icons = {
-            activated = "󰒳";
-            deactivated = "󰒲";
-          };
         };
         battery = {
           bat = "BAT0";
@@ -167,12 +148,9 @@ in {
           format-charging = "󰂄 {capacity}%";
           onclick = "";
         };
-        "sway/window" = {
-          max-length = 20;
-        };
         network = {
           interval = 3;
-          format-wifi = "   {essid}";
+          format-wifi = "  {essid}";
           format-ethernet = "󰈁 Connected";
           format-disconnected = "";
           tooltip-format = ''
@@ -203,97 +181,6 @@ in {
           on-click = mkScript {script = ''
             systemctl --user restart waybar
           '';};
-        };
-        "custom/unread-mail" = {
-          interval = 5;
-          return-type = "json";
-          exec = mkScriptJson {
-            deps = [pkgs.findutils pkgs.procps];
-            script = ''
-              count=$(find ~/Mail/*/Inbox/new -type f | wc -l)
-              if pgrep mbsync &>/dev/null; then
-                status="syncing"
-              else
-                if [ "$count" == "0" ]; then
-                  status="read"
-                else
-                  status="unread"
-                fi
-              fi
-            '';
-            text = "$count";
-            alt = "$status";
-          };
-          format = "{icon}  ({})";
-          format-icons = {
-            "read" = "󰇯";
-            "unread" = "󰇮";
-            "syncing" = "󰁪";
-          };
-        };
-        "custom/currentplayer" = {
-          interval = 2;
-          return-type = "json";
-          exec = mkScriptJson {
-            deps = [pkgs.playerctl];
-            script = ''
-              all_players=$(playerctl -l 2>/dev/null)
-              selected_player="$(playerctl status -f "{{playerName}}" 2>/dev/null || true)"
-              clean_player="$(echo "$selected_player" | cut -d '.' -f1)"
-            '';
-            alt = "$clean_player";
-            tooltip = "$all_players";
-          };
-          format = "{icon}{}";
-          format-icons = {
-            "" = " ";
-            "Celluloid" = "󰎁 ";
-            "spotify" = "󰓇 ";
-            "ncspot" = "󰓇 ";
-            "qutebrowser" = "󰖟 ";
-            "firefox" = " ";
-            "discord" = " 󰙯 ";
-            "sublimemusic" = " ";
-            "kdeconnect" = "󰄡 ";
-            "chromium" = " ";
-          };
-        };
-        "custom/player" = {
-          exec-if = mkScript {
-            deps = [pkgs.playerctl];
-            script = ''
-              selected_player="$(playerctl status -f "{{playerName}}" 2>/dev/null || true)"
-              playerctl status -p "$selected_player" 2>/dev/null
-            '';
-          };
-          exec = mkScript {
-            deps = [pkgs.playerctl];
-            script = ''
-              selected_player="$(playerctl status -f "{{playerName}}" 2>/dev/null || true)"
-              playerctl metadata -p "$selected_player" \
-                --format '{"text": "{{artist}} - {{title}}", "alt": "{{status}}", "tooltip": "{{artist}} - {{title}} ({{album}})"}' 2>/dev/null
-            '';
-          };
-          return-type = "json";
-          interval = 2;
-          max-length = 30;
-          format = "{icon} {}";
-          format-icons = {
-            "Playing" = "󰐊";
-            "Paused" = "󰏤 ";
-            "Stopped" = "󰓛";
-          };
-          on-click = mkScript {
-            deps = [pkgs.playerctl];
-            script = "playerctl play-pause";
-          };
-        };
-        "custom/rfkill" = {
-          interval = 1;
-          exec-if = mkScript {
-            deps = [pkgs.util-linux];
-            script = "rfkill | grep '\<blocked\>'";
-          };
         };
       };
     };
@@ -330,8 +217,8 @@ in {
         }
 
         #workspaces button {
-          padding-left: 0.4em;
-          padding-right: 0.4em;
+          padding-left: 0.2em;
+          padding-right: 0.2em;
           margin-top: 0.15em;
           margin-bottom: 0.15em;
         }
@@ -339,12 +226,18 @@ in {
         }
         #workspaces button.focused,
         #workspaces button.active {
+          font-weight: bold;
         }
 
         #clock {
           padding-right: 1em;
           padding-left: 1em;
           border-radius: 0.5em;
+          font-weight: bold;
+        }
+
+        #battery {
+          padding-right: 1.5em;
         }
 
         #custom-menu {
@@ -357,7 +250,7 @@ in {
         }
         #custom-hostname {
           padding-right: 1em;
-          padding-left: 1em;
+          padding-left: 0.5em;
           margin-left: 0;
           border-radius: 0.5em;
         }

@@ -6,7 +6,7 @@
       splash = false;
 
       preload = [ config.wallpaper ];
-      wallpaper = [ config.wallpaper ];
+      wallpaper = [ ",${config.wallpaper}" ];
     };
   };
 }

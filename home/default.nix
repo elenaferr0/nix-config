@@ -43,7 +43,6 @@
     };
   };
 
-  wallpaper = "/home/elena/Pictures/wallpapers/current.jpg";
 
   monitors = [
     {
