@@ -1,12 +1,24 @@
-{
-  pkgs,
-  vars,
-  ...
-}: {
+{pkgs, config, ...}: {
+  # home.packages = with pkgs; [
+  #   nerd-fonts.blex-mono
+  # ];
+
+  fontProfiles = {
+    enable = true;
+    monospace = {
+      name = "BlexMono Nerd Font";
+      package = pkgs.nerd-fonts.blex-mono;
+    };
+    regular = {
+      name = "BlexMono Nerd Font";
+      package = pkgs.nerd-fonts.blex-mono;
+    };
+  };
+
   gtk = {
     enable = true;
     font = {
-      name = vars.fontFamilies.monospace;
+      name = config.fontProfiles.monospace.name;
     };
   };
 
@@ -14,14 +26,10 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [vars.fontFamilies.monospace];
-        serif = [vars.fontFamilies.serif];
-        sansSerif = [vars.fontFamilies.sansSerif];
+        monospace = [config.fontProfiles.monospace.name];
+        serif = [config.fontProfiles.monospace.name];
+        sansSerif = [config.fontProfiles.regular.name];
       };
     };
   };
-
-  home.packages = with pkgs; [
-    nerd-fonts.blex-mono
-  ];
 }

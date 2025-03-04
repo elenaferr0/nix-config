@@ -1,8 +1,8 @@
 {lib, ...}: {
   wayland.windowManager.hyprland.settings = {
       bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
       ];
 
       bind = let
@@ -44,8 +44,8 @@
     in
       [
         # "SUPER,Return,exec,alacritty"
-        "SUPERSHIFT,Q,killactive"
-        "SUPERSHIFT,E,exit"
+        "SUPER,Q,killactive"
+        # "SUPERSHIFT,E,exit"
 
         "SUPER,space,togglesplit"
         "SUPER,F,fullscreen,1" # maximize

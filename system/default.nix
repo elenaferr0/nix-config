@@ -2,6 +2,7 @@
 {
   inputs,
   outputs,
+  pkgs,
   ...
 }: {
   imports =
@@ -18,8 +19,8 @@
       ./systemd-boot.nix
       ./systemd-initrd.nix
       ./users.nix
+      ./wireless.nix
     ];
-    # ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager.useGlobalPkgs = true;
   home-manager.extraSpecialArgs = {
@@ -43,7 +44,7 @@
     adb.enable = true;
     dconf.enable = true;
   };
-  
+
   services.xserver = {
     enable = true;
     displayManager = {
@@ -51,6 +52,16 @@
         enable = true;
         wayland = true;
       };
+      session = [
+        {
+          manage = "desktop";
+          name = "hyprland";
+          start = ''
+            ${pkgs.hyprland}/bin/Hyprland;
+            waitPID=$!
+          '';
+        }
+      ];
     };
   };
 }

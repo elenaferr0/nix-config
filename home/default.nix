@@ -8,7 +8,7 @@
   imports = [
     ./cli
     ./desktop/hyprland
-    ./desktop/wireless
+    ./desktop/common
   ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
