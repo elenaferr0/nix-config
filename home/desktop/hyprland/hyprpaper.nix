@@ -5,12 +5,8 @@
       ipc = "off";
       splash = false;
 
-      preload = [
-        "${config.home.homeDirectory}/pictures/wallpapers/current.jpg"
-      ];
-      wallpaper = [
-        "${config.home.homeDirectory}/pictures/wallpapers/current.jpg"
-      ];
+      preload = [ config.wallpaper ];
+      wallpaper = [ config.wallpaper ];
     };
   };
 }

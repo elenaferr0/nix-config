@@ -49,15 +49,15 @@
       enable = true;
       variables = ["--all"];
       # Same as default, but stop graphical-session too
-      # extraCommands = lib.mkBefore [
-      #   "systemctl --user stop graphical-session.target"
-      #   "systemctl --user start hyprland-session.target"
-      # ];
+      extraCommands = lib.mkBefore [
+        "systemctl --user stop graphical-session.target"
+        "systemctl --user start hyprland-session.target"
+      ];
     };
     settings = {
       general = {
         gaps_in = 15;
-        gaps_out = 20;
+        gaps_out = 15;
         border_size = 2;
         # "col.active_border" = rgba config.colorscheme.colors.primary "aa";
         # "col.inactive_border" = rgba config.colorscheme.colors.surface "aa";
@@ -99,7 +99,7 @@
         focus_on_activate = true;
         # Unfullscreen when opening something
         new_window_takes_over_fullscreen = 2;
-	disable_hyprland_logo = true;
+	      disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = true;
         swallow_regex = "^(Alacritty)$";
@@ -200,8 +200,8 @@
           "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           # Screenshotting
-          # "SUPER,S,exec,${grimblast} --notify --freeze copy area"
-          # "SHIFT,S,exec,${grimblast} --notify --freeze copy output"
+          "SUPER,S,exec,${grimblast} --notify --freeze copy area"
+          "SUPERSHIFT,S,exec,${grimblast} --notify --freeze copy output"
         ]
         ++ (
           let
@@ -243,7 +243,6 @@
           in
             lib.optionals config.programs.wofi.enable [
               "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-              "SUPER,s,exec,specialisation $(specialisation | ${wofi} -S dmenu)"
               "SUPER,d,exec,${wofi} -S run"
 
               # "SUPERALT,x,exec,${remote} ${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
@@ -257,26 +256,6 @@
                   ''SUPER,c,exec,selected=$(${cliphist} list | ${wofi} -S dmenu) && echo "$selected" | ${cliphist} decode | wl-copy''
                 ]
             )
-            # ++ (
-            #   let
-            #     # Save to image and share it to device, if png; else share as text to clipboard.
-            #     share-kdeconnect = lib.getExe (pkgs.writeShellScriptBin "kdeconnect-share" ''
-            #       type="$(wl-paste -l | head -1)"
-            #       device="$(kdeconnect-cli -a --id-only | head -1)"
-            #       if [ "$type" == "image/png" ]; then
-            #         path="$(mktemp XXXXXXX.png)"
-            #         wl-paste > "$path"
-            #         output="$(kdeconnect-cli --share "$path" -d "$device")"
-            #       else
-            #         output="$(kdeconnect-cli --share-text "$(wl-paste)" -d "$device")"
-            #       fi
-            #       notify-send -i kdeconnect "$output"
-            #     '');
-            #   in
-            #     lib.optionals config.services.kdeconnect.enable [
-            #       "SUPER,v,exec,${share-kdeconnect}"
-            #     ]
-            # )
         );
 
       monitor = let

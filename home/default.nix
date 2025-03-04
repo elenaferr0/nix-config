@@ -43,14 +43,14 @@
     };
   };
 
-  wallpaper = ~/Pictures/wallpapers/current.jpg;
+  wallpaper = "/home/elena/Pictures/wallpapers/current.jpg";
 
   monitors = [
     {
-      name = "DP-2";
-      width = 2559;
-      height = 1079;
-      workspace = "0";
+      name = "eDP-1";
+      width = 1920;
+      height = 1080;
+      workspace = "1";
       primary = true;
     }
   ];

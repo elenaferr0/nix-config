@@ -11,13 +11,13 @@ in {
     isNormalUser = true;
     shell = pkgs.bash;
     extraGroups = ifTheyExist [
+      "wheel"
+      "elena"
       "docker"
       "git"
       "network"
-      "wheel"
     ];
     packages = [pkgs.home-manager];
-    # initialPassword = "1";
   };
 
   home-manager.users.elena = import ../home/default.nix;

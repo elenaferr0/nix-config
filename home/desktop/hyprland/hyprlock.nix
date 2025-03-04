@@ -14,7 +14,7 @@
 
       background = [
         {
-          path = "${config.home.homeDirectory}/pictures/wallpapers/current.jpg";
+          path = config.wallpaper;
         }
       ];
 
@@ -24,7 +24,7 @@
           text_align = "center";
           color = "rgba(255, 255, 255, 1)";
           font_size = 150;
-          # font_family = vars.fontFamilies.monospace + " Bold";
+          font_family = config.fontProfiles.monospace.name + " Bold";
           halign = "center";
           valign = "center";
         }
