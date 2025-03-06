@@ -6,30 +6,8 @@
     ];
 
     bind = let
-      workspaces = [
-        "0"
-        "1"
-        "2"
-        "3"
-        "4"
-        "5"
-        "6"
-        "7"
-        "8"
-        "9"
-        "F1"
-        "F2"
-        "F3"
-        "F4"
-        "F5"
-        "F6"
-        "F7"
-        "F8"
-        "F9"
-        "F10"
-        "F11"
-        "F12"
-      ];
+      # generate 9 workspaces
+      workspaces = map toString (builtins.genList lib.id 9);
       # Map keys (arrows and hjkl) to hyprland directions (l, r, u, d)
       directions = rec {
         left = "l";
@@ -59,16 +37,13 @@
       ]
       ++
       # Change workspace
-      (map (n: "SUPER,${n},workspace,name:${n}") workspaces)
+      (map (n: "SUPER,${n},workspace,${n}") workspaces)
       ++
       # Move window to workspace
       (map (n: "SUPERSHIFT,${n},movetoworkspacesilent,name:${n}") workspaces)
       ++
       # Move focus
       (lib.mapAttrsToList (key: direction: "SUPER,${key},movefocus,${direction}") directions)
-      ++
-      # Swap windows
-      (lib.mapAttrsToList (key: direction: "SUPERSHIFT,${key},swapwindow,${direction}") directions)
       ++
       # Move windows
       (lib.mapAttrsToList (

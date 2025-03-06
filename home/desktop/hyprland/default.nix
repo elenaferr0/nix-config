@@ -95,12 +95,15 @@
         }
       ];
       dwindle = {
-        split_width_multiplier = 1.35;
         pseudotile = true;
+        preserve_split = true;
+      };
+      master = {
+        new_status = "master";
       };
       misc = {
-        vfr = true;
-        close_special_on_empty = true;
+        # vfr = true;
+        # close_special_on_empty = true;
         focus_on_activate = true;
         # Unfullscreen when opening something
         new_window_takes_over_fullscreen = 2;
@@ -150,13 +153,14 @@
       animations = {
         enabled = true;
         bezier = [
-          "easein,0.1, 0, 0.5, 0"
+          # https://easings.net
+          "easein,0.64, 0, 0.78, 0" # ease in quint
           "easeinback,0.35, 0, 0.95, -0.3"
 
-          "easeout,0.5, 1, 0.9, 1"
-          "easeoutback,0.35, 1.35, 0.65, 1"
+          "easeout,0.22, 1, 0.36, 1" # ease out quint
+          "easeoutback,0.22, 1, 0.36, 1"
 
-          "easeinout,0.45, 0, 0.55, 1"
+          "easeinout,0.83, 0, 0.17, 1" # ease in out quint
         ];
 
         animation = [
@@ -297,10 +301,6 @@
             else "disable"
           }"
         ) (config.monitors));
-
-      workspace = map (m: "name:${m.workspace},monitor:${m.name}") (
-        lib.filter (m: m.enabled && m.workspace != null) config.monitors
-      );
     };
   };
 }
