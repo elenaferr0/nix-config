@@ -1,7 +1,6 @@
 {
   programs.ssh = {
     enable = true;
-    # startAgent = true;
     addKeysToAgent = "yes";
     matchBlocks = {
       "*" = {
@@ -9,7 +8,7 @@
           TERM = "xterm-256color";
         };
       };
-      "github.com" = {
+      "git@github.com" = {
         user = "elenaferr0";
         hostname = "git@github.com";
         identityFile = "~/.ssh/github";

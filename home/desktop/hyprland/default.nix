@@ -38,6 +38,7 @@
 
   home.packages = with pkgs; [
     grimblast
+    hyprland-qtutils
   ];
 
   wayland.windowManager.hyprland = {

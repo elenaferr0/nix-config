@@ -1,14 +1,9 @@
 {pkgs, ...}: {
   imports = [
     ./bat.nix
-    # ./direnv.nix
-    # ./fzf.nix
-    # ./gh.nix
+    ./fzf.nix
     ./git.nix
     ./nvim
-    # ./gpg.nix
-    # ./nix-index.nix
-    # ./pfetch.nix
     ./ssh.nix
     ./zsh.nix
   ];

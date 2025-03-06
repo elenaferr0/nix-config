@@ -7,9 +7,11 @@
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
   users.mutableUsers = true;
+
+  programs.zsh.enable = true;
   users.users.elena = {
     isNormalUser = true;
-    shell = pkgs.bash;
+    shell = pkgs.zsh;
     extraGroups = ifTheyExist [
       "wheel"
       "elena"
@@ -21,5 +23,5 @@ in {
   };
 
   security.sudo.wheelNeedsPassword = false;
-  home-manager.users.elena = import ../home/default.nix;
+  home-manager.users.elena = import ../home;
 }
