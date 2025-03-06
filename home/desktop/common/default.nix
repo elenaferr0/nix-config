@@ -7,6 +7,7 @@
   imports = [
     # ./deluge.nix
     # ./discord.nix
+    ./cursor.nix
     ./firefox.nix
     ./fonts.nix
     # ./gtk.nix

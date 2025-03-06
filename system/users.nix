@@ -20,5 +20,6 @@ in {
     packages = [pkgs.home-manager];
   };
 
+  security.sudo.wheelNeedsPassword = false;
   home-manager.users.elena = import ../home/default.nix;
 }

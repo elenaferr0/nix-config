@@ -7,6 +7,7 @@
   programs.browserpass.enable = true;
   programs.firefox = {
     enable = true;
+    languagePacks = [ "en-US" ];
     profiles.elena = {
       search = {
         force = true;
@@ -84,10 +85,13 @@
         "toolkit.telemetry.unifiedIsOptIn" = false;
         "toolkit.telemetry.updatePing.enabled" = false;
 
-        # Disable fx accounts
-        "identity.fxaccounts.enabled" = false;
-        # Disable "save password" prompt
+        # Don't show prompt to save password
         "signon.rememberSignons" = false;
+
+        # Identity settings
+        "identity.fxaccounts.enabled" = true;
+        "identity.fxaccounts.account.device.name" = "thinkpad";
+
         # Harden
         "privacy.trackingprotection.enabled" = true;
         "dom.security.https_only_mode" = true;
@@ -99,17 +103,31 @@
           placements = {
             PersonalToolbar = ["personal-bookmarks"];
             TabsToolbar = ["tabbrowser-tabs" "new-tab-button" "alltabs-button"];
-            nav-bar = ["back-button" "forward-button" "stop-reload-button" "urlbar-container" "downloads-button" "ublock0_raymondhill_net-browser-action" "_testpilot-containers-browser-action" "reset-pbm-toolbar-button" "unified-extensions-button"];
+            nav-bar = [
+              "back-button"
+              "forward-button"
+              "vertical-spacer"
+              "stop-reload-button"
+              "urlbar-container"
+              "downloads-button"
+              "ublock0_raymondhill_net-browser-action"
+              "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
+              "_testpilot-containers-browser-action"
+              "reset-pbm-toolbar-button"
+              "unified-extensions-button"
+            ];
             toolbar-menubar = ["menubar-items"];
             unified-extensions-area = [];
             widget-overflow-fixed-list = [];
           };
           seen = ["save-to-pocket-button" "developer-button" "ublock0_raymondhill_net-browser-action" "_testpilot-containers-browser-action"];
         };
+        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
       };
     };
     policies = {
       ExtensionSettings = {
+        "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
         # "addon@darkreader.org" = {
         #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
         #   installation_mode = "force_installed";
@@ -118,10 +136,10 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           installation_mode = "force_installed";
         };
-        "adnauseam@rednoise.org" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/adnauseam/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        # "adnauseam@rednoise.org" = {
+        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/adnauseam/latest.xpi";
+        #   installation_mode = "force_installed";
+        # };
         "addon@fastforward.team.xpi" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/fastforwardteam/latest.xpi";
           installation_mode = "force_installed";
@@ -130,22 +148,24 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/istilldontcareaboutcookies/latest.xpi";
           installation_mode = "force_installed";
         };
-
-        # youtube stuff
+        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = { # Bitwarden
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+          installation_mode = "force_installed";
+        };
         "sponsorBlocker@ajay.app" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
           installation_mode = "force_installed";
         };
-        "{0d7cafdd-501c-49ca-8ebb-e3341caaa55e}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-nonstop/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
+        "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = { # Return YT dislikes
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
           installation_mode = "force_installed";
         };
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+        "{6AC85730-7D0F-4de0-B3FA-21142DD85326}" = { # Colorzilla
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/colorzilla/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}" = { # TWP
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/latest.xpi";
           installation_mode = "force_installed";
         };
       };

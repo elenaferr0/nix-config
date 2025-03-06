@@ -56,6 +56,10 @@
       ];
     };
     settings = {
+      env = [
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "XCURSOR_SIZE,24"
+      ];
       general = {
         gaps_in = 6;
         gaps_out = 10;
@@ -112,6 +116,7 @@
         jetbrains-welcome = "class:^(jetbrains-.*),title:^(Welcome to.*)";
         jetbrains-replace-all = "class:^(jetbrains-.*),title:^(Replace All)$";
         jetbrains-allows-input = "class:^(jetbrains-.*)";
+        bitwarden = "title:^(.*Bitwarden.*)";
       in
         [
           "float, ${calculator}"
@@ -120,6 +125,7 @@
           "float, ${jetbrains-welcome}"
           "center, ${jetbrains-replace-all}"
           # "allowsinput, ${jetbrains-allows-input}"
+          "float, ${bitwarden}"
         ];
       decoration = {
         active_opacity = 1.0;

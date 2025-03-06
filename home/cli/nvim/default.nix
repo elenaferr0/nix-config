@@ -21,6 +21,8 @@ in {
     defaultEditor = true;
     extraPackages = with pkgs; [
       tree-sitter
+      nil
+      gcc
       nodejs
     ];
     plugins = with pkgs.vimPlugins; [
@@ -91,11 +93,11 @@ in {
         blankline = {},
         gitsigns = {},
         icons = {},
-        languages = {
-          'nix',
-          'python',
-          'typst',
-        },
+        -- languages = {
+        --   'nix',
+        --   'python',
+        --   'typst',
+        -- },
         nvimtree = {
           sort_by = "case_sensitive",
           view = {
