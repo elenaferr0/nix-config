@@ -5,7 +5,7 @@
     ./git.nix
     ./nvim
     ./ssh.nix
-    ./zsh.nix
+    ./zsh
   ];
   home.packages = with pkgs; [
     eza # Better ls

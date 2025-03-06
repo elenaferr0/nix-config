@@ -6,6 +6,7 @@
     userEmail = "elena.ferro@gmail.com";
 
     aliases = {
+      s = "status";
       cm = "commit -m";
       cam = "commit --amend -m";
       pushf = "push -f";

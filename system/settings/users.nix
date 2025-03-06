@@ -23,5 +23,5 @@ in {
   };
 
   security.sudo.wheelNeedsPassword = false;
-  home-manager.users.elena = import ../home;
+  home-manager.users.elena = import ../../home;
 }

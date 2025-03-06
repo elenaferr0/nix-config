@@ -101,7 +101,7 @@ in {
 
         clock = {
           interval = 1;
-          format = "{:%H:%M %d/%m }";
+          format = "{:%H:%M - %a %b %d }";
           format-alt = "{:%Y-%m-%d %H:%M %z}";
           on-click-left = "mode";
           tooltip-format = ''
