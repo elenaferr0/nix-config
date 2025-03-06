@@ -3,7 +3,7 @@
   config,
   pkgs,
   ...
-} : {
+}: {
   wallpaper = "/home/elena/Pictures/wallpapers/current.jpg";
   imports = [
     ../common
@@ -104,7 +104,7 @@
         focus_on_activate = true;
         # Unfullscreen when opening something
         new_window_takes_over_fullscreen = 2;
-	      disable_hyprland_logo = true;
+        disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = true;
         swallow_regex = "^(Alacritty)$";
@@ -117,16 +117,15 @@
         jetbrains-replace-all = "class:^(jetbrains-.*),title:^(Replace All)$";
         jetbrains-allows-input = "class:^(jetbrains-.*)";
         bitwarden = "title:^(.*Bitwarden.*)";
-      in
-        [
-          "float, ${calculator}"
-          "float, ${calendar}"
-          "float, floating:0, ${jetbrains-win}"
-          "float, ${jetbrains-welcome}"
-          "center, ${jetbrains-replace-all}"
-          # "allowsinput, ${jetbrains-allows-input}"
-          "float, ${bitwarden}"
-        ];
+      in [
+        "float, ${calculator}"
+        "float, ${calendar}"
+        "float, floating:0, ${jetbrains-win}"
+        "float, ${jetbrains-welcome}"
+        "center, ${jetbrains-replace-all}"
+        # "allowsinput, ${jetbrains-allows-input}"
+        "float, ${bitwarden}"
+      ];
       decoration = {
         active_opacity = 1.0;
         inactive_opacity = 0.85;
@@ -184,7 +183,6 @@
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
-
 
       bind = let
         grimblast = lib.getExe pkgs.grimblast;

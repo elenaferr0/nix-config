@@ -4,22 +4,21 @@
   pkgs,
   ...
 }: {
-  imports =
-    [
-      inputs.hardware.nixosModules.common-cpu-amd
-      inputs.hardware.nixosModules.common-gpu-amd
-      inputs.hardware.nixosModules.common-pc-ssd
+  imports = [
+    inputs.hardware.nixosModules.common-cpu-amd
+    inputs.hardware.nixosModules.common-gpu-amd
+    inputs.hardware.nixosModules.common-pc-ssd
 
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.home-manager
-      ./locale.nix
-      ./nix.nix
-      # ./openssh.nix
-      ./systemd-boot.nix
-      ./systemd-initrd.nix
-      ./users.nix
-      ./wireless.nix
-    ];
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+    ./locale.nix
+    ./nix.nix
+    # ./openssh.nix
+    ./systemd-boot.nix
+    ./systemd-initrd.nix
+    ./users.nix
+    ./wireless.nix
+  ];
 
   home-manager.useGlobalPkgs = true;
   home-manager.extraSpecialArgs = {

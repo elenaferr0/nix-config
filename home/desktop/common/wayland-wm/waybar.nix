@@ -71,11 +71,13 @@ in {
         passthrough = false;
         height = 40;
         margin = "6";
-        position = "top"; modules-left = [ "custom/menu"
-            "custom/hostname"
-            "cpu"
-            "memory"
-            "hyprland/workspaces"
+        position = "top";
+        modules-left = [
+          "custom/menu"
+          "custom/hostname"
+          "cpu"
+          "memory"
+          "hyprland/workspaces"
         ];
 
         modules-center = [
@@ -175,12 +177,16 @@ in {
           };
         };
         "custom/hostname" = {
-          exec = mkScript {script = ''
-            echo "$USER@$HOSTNAME"
-          '';};
-          on-click = mkScript {script = ''
-            systemctl --user restart waybar
-          '';};
+          exec = mkScript {
+            script = ''
+              echo "$USER@$HOSTNAME"
+            '';
+          };
+          on-click = mkScript {
+            script = ''
+              systemctl --user restart waybar
+            '';
+          };
         };
       };
     };

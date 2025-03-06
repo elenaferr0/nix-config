@@ -1,11 +1,11 @@
 {lib, ...}: {
   wayland.windowManager.hyprland.settings = {
-      bindm = [
-        "SUPER, mouse:272, movewindow"
-        "SUPER, mouse:273, resizewindow"
-      ];
+    bindm = [
+      "SUPER, mouse:272, movewindow"
+      "SUPER, mouse:273, resizewindow"
+    ];
 
-      bind = let
+    bind = let
       workspaces = [
         "0"
         "1"
@@ -84,6 +84,6 @@
           key: direction: "SUPERALTSHIFT,${key},movecurrentworkspacetomonitor,${direction}"
         )
         directions);
-      "$mod" = "SUPER";
+    "$mod" = "SUPER";
   };
 }

@@ -39,7 +39,7 @@
   in {
     inherit lib;
     homeManagerModules = import ./modules/home-manager;
-    scripts = forEachSystem (pkgs: import ./scripts { inherit pkgs; });
+    scripts = import ./scripts;
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {

@@ -5,11 +5,12 @@
   config,
   ...
 }: {
-  imports = [
-    ./cli
-    ./desktop/hyprland
-    ./desktop/common
-  ]
+  imports =
+    [
+      ./cli
+      ./desktop/hyprland
+      ./desktop/common
+    ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
   nix = {
@@ -41,8 +42,8 @@
     sessionVariables = {
       FLAKE = "$HOME/.config/nix-config";
     };
+    packages = map (x: (x {pkgs = pkgs;})) (builtins.attrValues outputs.scripts);
   };
-
 
   monitors = [
     {
