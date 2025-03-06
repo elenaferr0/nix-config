@@ -11,13 +11,7 @@ in {
     settings = {
       # Harden
       PasswordAuthentication = true;
-      PermitRootLogin = "no";
-
-      # Automatically remove stale sockets
-      StreamLocalBindUnlink = "yes";
-      # Allow forwarding ports to everywhere
-      GatewayPorts = "clientspecified";
-      # Let WAYLAND_DISPLAY be forwarded
+      # PermitRootLogin = "no";
       AcceptEnv = "WAYLAND_DISPLAY";
       X11Forwarding = true;
     };
@@ -31,22 +25,23 @@ in {
   };
 
   programs.ssh = {
+    startAgent = true;
     # Each hosts public key
-    knownHosts = lib.genAttrs hosts (hostname: {
-      publicKeyFile = ../../${hostname}/ssh_host_ed25519_key.pub;
-      # extraHostNames =
-      #   [
-      #     "${hostname}.m7.rs"
-      #   ]
-      #   ++
-      #   # Alias for localhost if it's the same host
-      #   (lib.optional (hostname == config.networking.hostName) "localhost")
-      #   # Alias to m7.rs and git.m7.rs if it's alcyone
-      #   ++ (lib.optionals (hostname == "alcyone") [
-      #     "m7.rs"
-      #     "git.m7.rs"
-      #   ]);
-    });
+    # knownHosts = lib.genAttrs hosts (hostname: {
+    #   publicKeyFile = /etc/ssh/ssh_host_ed25519_key.pub;
+    #   # extraHostNames =
+    #   #   [
+    #   #     "${hostname}.m7.rs"
+    #   #   ]
+    #   #   ++
+    #   #   # Alias for localhost if it's the same host
+    #   #   (lib.optional (hostname == config.networking.hostName) "localhost")
+    #   #   # Alias to m7.rs and git.m7.rs if it's alcyone
+    #   #   ++ (lib.optionals (hostname == "alcyone") [
+    #   #     "m7.rs"
+    #   #     "git.m7.rs"
+    #   #   ]);
+    # });
   };
 
   # Passwordless sudo when SSH'ing with keys
