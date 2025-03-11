@@ -4,6 +4,7 @@
     ./fzf.nix
     ./git.nix
     ./nvim
+    ./python.nix
     ./ssh.nix
     ./zsh
   ];

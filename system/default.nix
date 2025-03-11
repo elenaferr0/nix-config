@@ -11,6 +11,7 @@
 
     inputs.home-manager.nixosModules.home-manager
     ./services/adb.nix
+    ./services/bluetooth.nix
     ./services/dconf.nix
     ./services/openssh.nix
     ./services/wireless.nix

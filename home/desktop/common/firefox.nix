@@ -1,7 +1,5 @@
 {
-  pkgs,
   lib,
-  inputs,
   ...
 }: {
   programs.browserpass.enable = true;
@@ -36,9 +34,7 @@
         "trailhead.firstrun.didSeeAboutWelcome" = true;
         "browser.bookmarks.restore_default_bookmarks" = false;
         "browser.bookmarks.addedImportButton" = true;
-
-        # Don't ask for download dir
-        "browser.download.useDownloadDir" = false;
+        "browser.download.useDownloadDir" = true; # Do not ask for download dir
 
         # Disable crappy home activity stream page
         "browser.newtabpage.activity-stream.feeds.topsites" = false;

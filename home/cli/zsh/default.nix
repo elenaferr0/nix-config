@@ -20,27 +20,6 @@
       dir = "${pkgs.yazi}/bin/yazi";
     };
 
-    # prezto = {
-    #   enable = true;
-    #   pmodules = [
-    #     "environment"
-    #     "terminal"
-    #     "editor"
-    #     "history"
-    #     "directory"
-    #     "spectrum"
-    #     "utility"
-    #     "completion"
-    #     "prompt"
-    #     "git"
-    #   ];
-    #   prompt = {
-    #     theme = "skwp";
-    #     pwdLength = "short";
-    #     showReturnVal = true;
-    #   };
-    # };
-
     zplug = {
       enable = true;
       plugins = [

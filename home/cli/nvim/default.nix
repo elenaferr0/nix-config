@@ -24,6 +24,7 @@ in {
       nil
       gcc
       nodejs
+      tinymist
     ];
     plugins = with pkgs.vimPlugins; [
       bufferline-nvim
@@ -45,7 +46,6 @@ in {
       vim-repeat
       vim-sneak
       vim-surround
-      # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.java ]))
     ];
     extraLuaConfig = ''
       vim.opt.relativenumber = true
@@ -55,6 +55,13 @@ in {
       vim.opt.shiftwidth = 4
       vim.opt.expandtab = true
       vim.cmd("set splitbelow")
+      -- Transparent bg:
+      vim.cmd [[
+        highlight Normal guibg=none
+        highlight NonText guibg=none
+        highlight Normal ctermbg=none
+        highlight NonText ctermbg=none
+      ]]
 
       -- buffer navigation
       vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<CR>', { noremap = true })
@@ -93,11 +100,11 @@ in {
         blankline = {},
         gitsigns = {},
         icons = {},
-        -- languages = {
-        --   'nix',
+        languages = {
+           'nix',
         --   'python',
-        --   'typst',
-        -- },
+          'typst',
+        },
         nvimtree = {
           sort_by = "case_sensitive",
           view = {
