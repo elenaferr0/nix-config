@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   programs.browserpass.enable = true;
   programs.firefox = {
     enable = true;
@@ -34,9 +31,21 @@
         "trailhead.firstrun.didSeeAboutWelcome" = true;
         "browser.bookmarks.restore_default_bookmarks" = false;
         "browser.bookmarks.addedImportButton" = true;
-        "browser.download.useDownloadDir" = true; # Do not ask for download dir
 
-        # Disable crappy home activity stream page
+        # Do not ask for download dir
+        "browser.download.useDownloadDir" = true;
+
+        # Open pdfs instead of downloading them
+        "browser.download.open_pdf_attachments_inline" = true;
+
+        # UI customizations
+        "browser.compactmode.show" = true;
+        "widget.non-native-theme.scrollbar.style" = 3;
+        "apz.overscroll.enabled" = false; # No overscroll animations at the top
+
+        "image.mem.surfacecache.max_size_kb" = 500000; # Img cache
+
+        # Tabs config, disable crappy home activity stream page
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts" = false;
@@ -54,18 +63,23 @@
           # Twitter
           "T9nJot5PurhJSy8n038xGA=="
         ] (_: 1);
+        "browser.tabs.insertAfterCurrent" = true;
 
         # Disable some telemetry
         "app.shield.optoutstudies.enabled" = false;
         "browser.discovery.enabled" = false;
         "browser.newtabpage.activity-stream.feeds.telemetry" = false;
         "browser.newtabpage.activity-stream.telemetry" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false; # Disable Extension recommendations ("Recommend extensions as you browse")
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false; # "Recommend features as you browse"
         "browser.ping-centre.telemetry" = false;
         "datareporting.healthreport.service.enabled" = false;
         "datareporting.healthreport.uploadEnabled" = false;
         "datareporting.policy.dataSubmissionEnabled" = false;
         "datareporting.sessions.current.clean" = true;
         "devtools.onboarding.telemetry.logged" = false;
+        "extensions.htmlaboutaddons.discover.enabled" = false;
+        "extensions.htmlaboutaddons.recommendations.enabled" = false;
         "toolkit.telemetry.archive.enabled" = false;
         "toolkit.telemetry.bhrPing.enabled" = false;
         "toolkit.telemetry.enabled" = false;
@@ -80,6 +94,19 @@
         "toolkit.telemetry.unified" = false;
         "toolkit.telemetry.unifiedIsOptIn" = false;
         "toolkit.telemetry.updatePing.enabled" = false;
+
+        # Disable addons recommendations
+        "extensions.getAddons.showPane" = false;
+        "extensions.webservice.discoverURL" = "";
+        "extensions.getAddons.discovery.api_url" = "";
+
+        # Media settings
+        "media.block-autoplay-until-in-foreground" = true;
+        "media.block-play-until-document-interaction" = true;
+        "media.block-play-until-visible" = true;
+
+        # Layout
+        "layout.word_select.eat_space_to_next_word" = true;
 
         # Don't show prompt to save password
         "signon.rememberSignons" = false;
@@ -175,6 +202,7 @@
   xdg.mimeApps.defaultApplications = {
     "text/html" = ["firefox.desktop"];
     "text/xml" = ["firefox.desktop"];
+    "application/pdf" = ["firefox.desktop"];
     "x-scheme-handler/http" = ["firefox.desktop"];
     "x-scheme-handler/https" = ["firefox.desktop"];
   };

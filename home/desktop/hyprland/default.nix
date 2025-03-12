@@ -38,6 +38,7 @@
 
   home.packages = with pkgs; [
     grimblast
+    slurp
     hyprland-qtutils
   ];
 
@@ -191,6 +192,7 @@
 
       bind = let
         grimblast = lib.getExe pkgs.grimblast;
+        slurp = lib.getExe pkgs.slurp;
         brightnessctl = lib.getExe pkgs.brightnessctl;
         pactl = lib.getExe' pkgs.pulseaudio "pactl";
         defaultApp = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
@@ -210,8 +212,8 @@
           "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           # Screenshotting
-          "SUPER,S,exec,${grimblast} --notify --freeze copy area"
-          "SUPERSHIFT,S,exec,${grimblast} --notify --freeze copy output"
+          "SUPER,S,exec,${grimblast} $(xdg-user-dir PICTURES)/screenshots/$(date +'%y%m%d_%H%M%S.png')"
+          "SUPERSHIFT,S,exec, ${slurp} | ${grimblast} -g - - | wl-copy"
         ]
         ++ (
           let
@@ -232,7 +234,7 @@
         ++
         # Screen lock
         [
-          "SUPER,Escape,exec,hyprlock -q"
+          "SUPER,Escape,exec,hyprlock -q && systemctl suspend"
         ]
         ++
         # Notification manager
