@@ -252,10 +252,12 @@
         (
           let
             wofi = lib.getExe config.programs.wofi.package;
+            getoption = ''hyprctl getoption input:kb_layout -j | jq -r '.str | split(",") | [.[1],.[0]] | join(",")' '';
           in
             lib.optionals config.programs.wofi.enable [
-              "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-              "SUPER,d,exec,${wofi} -S run"
+              # "SUPER,R,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
+              "SUPER,X,exec,hyprctl keyword input:kb_layout $(${getoption})"
+              "SUPER,R,exec,${wofi} -S run"
 
               # "SUPERALT,x,exec,${remote} ${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
               # "SUPERALT,d,exec,${remote} ${wofi} -S run"
@@ -265,7 +267,7 @@
                 cliphist = lib.getExe config.services.cliphist.package;
               in
                 lib.optionals config.services.cliphist.enable [
-                  ''SUPER,c,exec,selected=$(${cliphist} list | ${wofi} -S dmenu) && echo "$selected" | ${cliphist} decode | wl-copy''
+                  ''SUPER,C,exec,selected=$(${cliphist} list | ${wofi} -S dmenu) && echo "$selected" | ${cliphist} decode | wl-copy''
                 ]
             )
         );
