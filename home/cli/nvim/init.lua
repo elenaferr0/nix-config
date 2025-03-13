@@ -199,9 +199,9 @@ vim.api.nvim_set_keymap('n', '<leader>bn', ':bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>bp', ':bp<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>be', ':enew<CR>', { noremap = true })
 
--- vim.cmd('imap <silent><script><expr> <C-j> copilot#Accept("")')
--- vim.cmd("let g:copilot_no_tab_map = v:true")
--- vim.cmd("let g:copilot_assume_mapped = v:true")
+vim.cmd('imap <silent><script><expr> <C-j> copilot#Accept("")')
+vim.cmd("let g:copilot_no_tab_map = v:true")
+vim.cmd("let g:copilot_assume_mapped = v:true")
 
 local notify = require("notify")
 
