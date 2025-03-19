@@ -50,6 +50,8 @@
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts" = false;
+        "browser.newtabpage.activity-stream.floorp.newtab.imagecredit.hide" = true;
+        "browser.newtabpage.activity-stream.floorp.newtab.releasenote.hide" = true;
         "browser.newtabpage.blocked" = lib.genAttrs [
           # Youtube
           "26UbzFJ7qT9/4DhodHKA1Q=="
@@ -65,6 +67,8 @@
           "T9nJot5PurhJSy8n038xGA=="
         ] (_: 1);
         "browser.tabs.insertAfterCurrent" = true;
+        "browser.newtabpage.activity-stream.floorp.background.image.path" = "~/Pictures/wallpapers/browser.jpg";
+        "browser.newtabpage.activity-stream.floorp.background.type" = 4; # Image
 
         # Disable some telemetry
         "app.shield.optoutstudies.enabled" = false;
@@ -184,6 +188,10 @@
         "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
           # Return YT dislikes
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "custom-new-tab-page@mint.as" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/custom-new-tab-page/latest.xpi";
           installation_mode = "force_installed";
         };
         # "{6AC85730-7D0F-4de0-B3FA-21142DD85326}" = {

@@ -13,6 +13,7 @@
     ./services/adb.nix
     ./services/bluetooth.nix
     ./services/dconf.nix
+    ./services/docker.nix
     ./services/openssh.nix
     ./services/wireless.nix
     ./services/xserver.nix
