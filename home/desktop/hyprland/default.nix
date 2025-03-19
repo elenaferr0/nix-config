@@ -232,7 +232,8 @@
         ++
         # Screen lock
         [
-          "SUPER,Escape,exec,hyprlock -q && systemctl suspend"
+          # "SUPER,Escape,exec,systemctl suspend && hyprlock -q"
+          "SUPER,Escape,exec, hyprlock -q"
         ]
         ++
         # Notification manager

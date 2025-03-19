@@ -1,6 +1,6 @@
 {lib, ...}: {
   programs.browserpass.enable = true;
-  programs.firefox = {
+  programs.floorp = {
     enable = true;
     languagePacks = ["en-US"];
     profiles.elena = {
@@ -40,6 +40,7 @@
 
         # UI customizations
         "browser.compactmode.show" = true;
+        "floorp.browser.user.interface" = 8; # Floorp Fluerial UI
         "widget.non-native-theme.scrollbar.style" = 3;
         "apz.overscroll.enabled" = false; # No overscroll animations at the top
 
@@ -185,16 +186,16 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
           installation_mode = "force_installed";
         };
-        "{6AC85730-7D0F-4de0-B3FA-21142DD85326}" = {
-          # Colorzilla
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/colorzilla/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}" = {
-          # TWP
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        # "{6AC85730-7D0F-4de0-B3FA-21142DD85326}" = {
+        #   # Colorzilla
+        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/colorzilla/latest.xpi";
+        #   installation_mode = "force_installed";
+        # };
+        # "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}" = {
+        #   # TWP
+        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/latest.xpi";
+        #   installation_mode = "force_installed";
+        # };
       };
     };
   };

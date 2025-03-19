@@ -8,7 +8,7 @@
     # ./deluge.nix
     ./discord.nix
     ./cursor.nix
-    ./firefox.nix
+    ./floorp.nix
     ./fonts.nix
     # ./gtk.nix
     ./pavucontrol.nix

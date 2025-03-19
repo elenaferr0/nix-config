@@ -17,7 +17,7 @@
     ./services/wireless.nix
     ./services/xserver.nix
 
-    ./settings/boot/systemd-boot.nix
+    ./settings/boot
     ./settings/hardware-configuration.nix
     ./settings/home-manager.nix
     ./settings/locale.nix
