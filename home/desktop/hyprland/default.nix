@@ -111,7 +111,7 @@
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = true;
-        swallow_regex = "^(Alacritty)$";
+        swallow_regex = "^(Alacritty|Ghostty)$";
       };
       windowrulev2 = let
         calculator = "title: Calculator";
@@ -196,8 +196,6 @@
         defaultApp = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
       in
         [
-          # Program bindings
-          "SUPER,Return,exec,${defaultApp "x-scheme-handler/terminal"}"
           # Brightness control
           ",XF86MonBrightnessUp,exec,${brightnessctl} set 10%+"
           ",XF86MonBrightnessDown,exec,${brightnessctl} set 10%-"

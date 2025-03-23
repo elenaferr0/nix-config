@@ -40,6 +40,7 @@
     inherit lib;
     homeManagerModules = import ./modules/home-manager;
     scripts = import ./scripts;
+    overlays = import ./overlays {inherit inputs outputs;};
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {

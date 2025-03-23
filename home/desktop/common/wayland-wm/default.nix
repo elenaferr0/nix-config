@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   imports = [
-    ./alacritty.nix
+    # ./alacritty.nix
     ./cliphist.nix
+    ./ghostty.nix
     ./mako.nix
     ./waybar.nix
     ./wofi.nix

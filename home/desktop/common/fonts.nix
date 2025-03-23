@@ -3,10 +3,6 @@
   config,
   ...
 }: {
-  # home.packages = with pkgs; [
-  #   nerd-fonts.blex-mono
-  # ];
-
   fontProfiles = {
     enable = true;
     monospace = {

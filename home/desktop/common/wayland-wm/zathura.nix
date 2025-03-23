@@ -5,6 +5,8 @@
       selection-clipboard = "clipboard";
       font = "${config.fontProfiles.regular.name} ${toString config.fontProfiles.regular.size}";
       recolor = true;
+      default-bg = "#000000";
+      default-fg = "#FFFFFF";
       # default-bg = "${colors.surface}";
       # default-fg = "${colors.surface_bright}";
       # statusbar-bg = "${colors.surface_container}";
