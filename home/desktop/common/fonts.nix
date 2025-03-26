@@ -10,7 +10,7 @@
       package = pkgs.nerd-fonts.blex-mono;
     };
     regular = {
-      name = "BlexMono Nerd Font";
+      name = "BlexMono Nerd Font Medium";
       package = pkgs.nerd-fonts.blex-mono;
     };
   };

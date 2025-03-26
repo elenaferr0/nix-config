@@ -2,7 +2,7 @@
   imports = [
     # ./alacritty.nix
     ./cliphist.nix
-    ./ghostty.nix
+    ./foot.nix
     ./mako.nix
     ./waybar.nix
     ./wofi.nix

@@ -10,13 +10,7 @@
     inputs.hardware.nixosModules.common-pc-ssd
 
     inputs.home-manager.nixosModules.home-manager
-    ./services/adb.nix
-    ./services/bluetooth.nix
-    ./services/dconf.nix
-    ./services/docker.nix
-    ./services/openssh.nix
-    ./services/wireless.nix
-    ./services/xserver.nix
+    ./services
 
     ./settings/boot
     ./settings/hardware-configuration.nix
@@ -25,6 +19,10 @@
     ./settings/nix.nix
     ./settings/systemd-initrd.nix
     ./settings/users.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    usbutils
   ];
 
   hardware.enableRedistributableFirmware = true;

@@ -111,7 +111,7 @@
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = true;
-        swallow_regex = "^(Alacritty|Ghostty)$";
+        swallow_regex = "^(Alacritty|foot)$";
       };
       windowrulev2 = let
         calculator = "title: Calculator";
@@ -230,8 +230,7 @@
         ++
         # Screen lock
         [
-          # "SUPER,Escape,exec,systemctl suspend && hyprlock -q"
-          "SUPER,Escape,exec, hyprlock -q"
+          "SUPER,Escape,exec,systemctl suspend && hyprlock -q"
         ]
         ++
         # Notification manager

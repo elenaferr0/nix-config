@@ -367,3 +367,10 @@ end
 vim.keymap.set("n", "<C-P>", tree_actions_menu, { buffer = buffer, noremap = true, silent = true })
 vim.g.typst_syntax_highlight = 1
 vim.g.typst_pdf_viewer = "zathura"
+-- Set commentstring for Typst files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "typst",
+    callback = function()
+        vim.bo.commentstring = "// %s"
+    end
+})

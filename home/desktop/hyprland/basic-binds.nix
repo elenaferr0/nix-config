@@ -21,7 +21,7 @@
       };
     in
       [
-        "SUPER,Return,exec,ghostty"
+        "SUPER,Return,exec,foot"
         "SUPER,Q,killactive"
         # "SUPERSHIFT,E,exit"
 

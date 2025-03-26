@@ -19,7 +19,7 @@
       nil
       gcc
       nodejs
-      tinymist
+      typstfmt
     ];
     plugins = with pkgs.vimPlugins; [
       bufferline-nvim
