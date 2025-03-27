@@ -7,6 +7,7 @@
     # ./fingerprint.nix
     ./openssh.nix
     ./printer.nix
+    ./upower.nix
     ./wireless.nix
     ./xserver.nix
   ];

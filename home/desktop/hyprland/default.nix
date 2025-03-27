@@ -187,6 +187,7 @@
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "${pkgs.upower-notify}/bin/upower-notify -tick 60s"
       ];
 
       bind = let
